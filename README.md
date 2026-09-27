@@ -4,7 +4,7 @@ Implementación en C++17 de alto rendimiento y bajo consumo de memoria del algor
 
 ---
 
-## 📁 Estructura del Repositorio
+## Estructura del Repositorio
 
 ```text
 ACO/
@@ -58,7 +58,7 @@ ACO/
 
 ---
 
-## 🚀 Compilación y Ejecución
+## Compilación y Ejecución
 
 ### Requisitos
 * Compilador C++17 compatible con OpenMP (`g++` recomendado).
@@ -89,7 +89,7 @@ ACO/
 
 ---
 
-## 📊 Arquitectura de Ahorro Extremo de Recursos
+## Arquitectura de Ahorro Extremo de Recursos
 
 | Dimensión | Matriz Densa Ingenua ($N \times N$) | Arquitectura Optimizada (`src/aco.cpp`) | Factor de Ahorro |
 |---|---|---|---|
