@@ -9,14 +9,13 @@ Implementación en C++17 de alto rendimiento y bajo consumo de memoria del algor
 ```text
 ACO/
 ├── src/                  # Código fuente C++ de alto rendimiento
-│   ├── aco.cpp           # Implementación principal optimizada (8.2 MB pico para 200k)
-│   └── Makefile          # Makefile interno del código fuente
+│   └── aco.cpp           # Implementación principal optimizada (8.2 MB pico para 200k)
 │
 ├── bin/                  # Binarios ejecutables compilados
 │   ├── aco               # Binario principal
 │   └── aco1              # Binario del benchmark oficial
 │
-├── data/                 # Instancias generadas y resultados experimentales
+├── data/                 # Instancias generadas y resultados experimentales (.csv)
 │   ├── coords20.csv      # Coordenadas (x, y) para N = 20
 │   ├── coords2000.csv    # Coordenadas (x, y) para N = 2.000
 │   ├── coords200k.csv    # Coordenadas (x, y) para N = 200.000
@@ -29,14 +28,15 @@ ACO/
 ├── scripts/              # Herramientas de automatización y análisis en Python
 │   ├── ACO_TSP.ipynb     # Jupyter Notebook interactivo con visualizaciones
 │   ├── barrido.py        # Automatización de barrido sobre las 9 escalas
-│   ├── graficas.py       # Generador de curvas (log-log, memoria, calidad, tours)
+│   ├── graficas.py       # Generador de curvas (tiempo, memoria, calidad, tours)
 │   └── semillas.py       # Evaluación de robustez estadística multi-semilla
 │
-├── Informe_Tecnico/       # Informe académico completo en LaTeX y PDF
-│   ├── informe_aco.tex   # Código fuente LaTeX del informe (20 páginas)
-│   ├── informe_aco.pdf   # Documento compilado final
-│   ├── Makefile          # Reglas para compilar el PDF con pdflatex
-│   └── img/              # Figuras experimentales y capturas de código
+├── Informe_Tecnico/       # Informes técnicos en LaTeX y PDF
+│   ├── informe.pdf       # Informe Técnico Oficial (formal, 11 páginas)
+│   ├── informe.tex       # Código fuente LaTeX del informe oficial
+│   ├── informe_sustentacion.pdf # Guía de sustentación (didáctico con capturas, 20 págs.)
+│   ├── informe_sustentacion.tex # Código fuente LaTeX de la sustentación
+│   └── img/              # Figuras experimentales y curvas de convergencia
 │       ├── fig_tiempo.png
 │       ├── fig_memoria.png
 │       ├── fig_calidad.png
@@ -44,48 +44,54 @@ ACO/
 │       ├── fig_tours.png
 │       ├── fig_semillas.png
 │       ├── vscode_editor_real.png
-│       └── code_snippets/ # 14 capturas modulares de VS Code
+│       └── code_snippets/
 │
 ├── docs/                 # Documentación y material de referencia
 │   ├── 07_IA_2026_2.pdf  # Diapositivas guía de la asignatura (Sesión 07)
 │   ├── COMPARATIVA.md    # Análisis comparativo técnico
 │   └── INFORME.md        # Resumen ejecutivo en formato Markdown
 │
-├── Makefile              # Makefile raíz que orquesta compilación y ejecución
-├── README.md             # Documento de descripción y guía de uso
-└── informe_aco.pdf -> Informe_Tecnico/informe_aco.pdf  # Acceso directo al informe
+└── README.md             # Guía general del proyecto
 ```
 
 ---
 
+<<<<<<< HEAD
 ## Compilación y Ejecución
+=======
+## 🚀 Compilación y Ejecución Directa
+>>>>>>> 73d5090 (Add table of contents for the technical report on TSP and ACO algorithm)
 
 ### Requisitos
 * Compilador C++17 compatible con OpenMP (`g++` recomendado).
 * Python 3 con `numpy` y `matplotlib`.
-* Distribución TeX Live con `pdflatex` (para compilar el informe).
+* Distribución TeX Live con `pdflatex` (para compilar los informes).
 
-### Comandos Rápidos
-* **Compilar el proyecto:**
+### Compilación de C++
+```bash
+g++ -O3 -march=native -fopenmp -std=c++17 -Wall -Wextra src/aco.cpp -o bin/aco
+```
+
+### Ejecución
+* **Ejecutar el conjunto completo de escalas (20, 2.000 y 200.000 ciudades):**
   ```bash
-  make
-  ```
-* **Ejecutar con parámetros por defecto (20, 2.000 y 200.000 ciudades):**
-  ```bash
-  make run
+  ./bin/aco
   ```
 * **Ejecutar una escala específica (ej. 200.000 ciudades):**
   ```bash
   ./bin/aco -n 200000
   ```
-* **Recompilar el informe en PDF:**
+* **Ejecutar escala pequeña ($N=20$) con volcado de coordenadas y tour:**
   ```bash
-  make informe
+  ./bin/aco -n 20 --dump-coords data/coords20.csv --dump-tour data/tour20.csv
   ```
-* **Limpiar binarios y temporales:**
-  ```bash
-  make clean
-  ```
+
+### Compilación de los Informes en LaTeX
+```bash
+cd Informe_Tecnico
+pdflatex -interaction=nonstopmode informe.tex && pdflatex -interaction=nonstopmode informe.tex
+pdflatex -interaction=nonstopmode informe_sustentacion.tex && pdflatex -interaction=nonstopmode informe_sustentacion.tex
+```
 
 ---
 

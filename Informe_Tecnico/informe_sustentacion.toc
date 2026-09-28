@@ -1,0 +1,45 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}El Problema del TSP y la ``Cáscara'' Combinatoria}{4}{section.1}%
+\contentsline {subsection}{\numberline {1.1}La Explosión Factorial (PDF Guía §9--§10)}{4}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Generación Estocástica de Coordenadas: Modelo Euclidiano Sintético en $[0, 1]^2$}{4}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Estructura y Significado de los Archivos de Tour (\texttt {tour*.csv}) y Coordenadas (\texttt {coords*.csv})}{5}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Archivos de Coordenadas (\texttt {coords*.csv})}{5}{subsubsection.1.3.1}%
+\contentsline {subsubsection}{\numberline {1.3.2}Archivos de Recorrido (\texttt {tour*.csv}): ¿Qué significan?}{6}{subsubsection.1.3.2}%
+\contentsline {paragraph}{Ejemplo con \texttt {tour20.csv}:}{6}{section*.3}%
+\contentsline {subsubsection}{\numberline {1.3.3}Conexión entre Coordenadas y Tour para la Graficación}{6}{subsubsection.1.3.3}%
+\contentsline {subsubsection}{\numberline {1.3.4}Validación Rigurosa de Ciclo Hamiltoniano}{6}{subsubsection.1.3.4}%
+\contentsline {section}{\numberline {2}Demostración Matemática: ¿Por qué 160 GB y por qué NO los usamos?}{7}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Cálculo de la Demanda de Almacenamiento Cuadrático (160 GB + 160 GB = 320 GB)}{7}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Representación del Estado: Teoría del PDF de Clase vs. Implementación Práctica}{7}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}¿Qué especifica formalmente el documento docente de la clase?}{7}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}¿Cuál usamos en nuestro código? ¿La de distancias o la de feromonas?}{7}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.3}Las Cuatro Estrategias de Ahorro que Logran 8.21 MB Reales}{8}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Guión de Preguntas y Respuestas Clave para la Sustentación Oral}{9}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Formulación del Algoritmo ACO (PDF Guía §14--§22)}{10}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Visibilidad Heurística y Regla de la Ruleta (§14--§17)}{11}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Doble Feromona con Asimetría de Magnitudes (§18--§20)}{11}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Criterio de Parada Temprana ($S$ Iteraciones sin Mejora, §22)}{11}{subsection.3.3}%
+\contentsline {section}{\numberline {4}El Proceso de las Hormigas según la Escala de Ciudades}{11}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Escala Pequeña ($N = 20$ Ciudades: Régimen Denso Clásico)}{11}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Escala Media ($N = 2.000$ Ciudades: Régimen Disperso $k$-NN)}{12}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Escala Masiva ($N = 200.000$ Ciudades: Régimen Jerárquico)}{12}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Entorno de Desarrollo en VS Code}{12}{section.5}%
+\contentsline {section}{\numberline {6}Explicación Línea por Línea del Código con Capturas de VS Code}{13}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Módulo 1: Configuración y Coordenadas (Líneas 20--38)}{14}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Módulo 2: Monitoreo de Memoria en Linux (Líneas 39--52)}{15}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Módulo 3: Instanciación y Longitud de Recorrido (Líneas 53--76)}{15}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Módulo 4: Construcción de $k$-NN Exacto con Buffer Reutilizado (Líneas 77--100)}{16}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}Módulo 5: Ruleta Estocástica y Operaciones de Feromona (Líneas 101--167)}{17}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6}Módulo 6: Núcleo del ACO Disperso con Doble Feromona (Líneas 168--228)}{18}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7}Módulo 7: Búsqueda Local 2-opt con Ventana (Líneas 229--262)}{19}{subsection.6.7}%
+\contentsline {subsection}{\numberline {6.8}Módulo 8: Descomposición Jerárquica para 200k Ciudades (Líneas 263--326)}{20}{subsection.6.8}%
+\contentsline {subsection}{\numberline {6.9}Módulo 9: Experimento, Validación y CLI (Líneas 327--434)}{21}{subsection.6.9}%
+\contentsline {section}{\numberline {7}Explicación Detallada de la Salida del Programa (\texttt {./aco1})}{21}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Interpretación de los Resultados por Instancia}{23}{subsection.7.1}%
+\contentsline {section}{\numberline {8}Evaluación Experimental y Análisis de Gráficas}{23}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Análisis de Tiempo y Memoria (Figura~\ref {fig:tiempo} y \ref {fig:memoria})}{24}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Calidad y Esfuerzo de Búsqueda (Figura~\ref {fig:calidad} y \ref {fig:hormigas})}{24}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Robustez Multi-Semilla y Estudio de Ablación (Figura~\ref {fig:semillas})}{25}{subsection.8.3}%
+\contentsline {subsubsection}{\numberline {8.3.1}Estudio de Ablación ($\alpha = 0$ vs $\beta = 0$)}{25}{subsubsection.8.3.1}%
+\contentsline {section}{\numberline {9}Conclusiones}{26}{section.9}%
+\contentsline {section}{\numberline {10}Instrucciones de Compilación y Reproducibilidad}{26}{section.10}%

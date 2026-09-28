@@ -9,11 +9,38 @@
 \usepackage{amsmath,amssymb}
 \usepackage{hyperref}
 \usepackage{float}
+\graphicspath{{img/}}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{lmodern}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+\newtcolorbox{sustentacionbox}[1][]{
+    enhanced,
+    colback=blue!4!white,
+    colframe=blue!70!black,
+    fonttitle=\bfseries\small,
+    title={#1},
+    arc=2mm,
+    boxrule=0.8pt,
+    left=3mm,right=3mm,top=2mm,bottom=2mm,
+    breakable
+}
+
+\newtcolorbox{alertainforme}[1][]{
+    enhanced,
+    colback=red!4!white,
+    colframe=red!70!black,
+    fonttitle=\bfseries\small,
+    title={#1},
+    arc=2mm,
+    boxrule=0.8pt,
+    left=3mm,right=3mm,top=2mm,bottom=2mm,
+    breakable
+}
 
 \hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
 
@@ -99,39 +126,131 @@ La Tabla~\ref{tab:factorial} pone en evidencia la trampa combinatoria planteada 
 \section{Demostración Matemática: ¿Por qué 160 GB y por qué NO los usamos?}
 % ==============================================================================
 
-\subsection{Cálculo de la Memoria Densa Teórica}
-Para $N = 200.000$ ciudades:
+\subsection{Cálculo de la Demanda de Almacenamiento Cuadrático (160 GB + 160 GB = 320 GB)}
+Para una instancia canónica de orden $N = 200.000$ ciudades:
 \begin{itemize}
-    \item Número total de posiciones en la matriz:
+    \item Número total de posiciones en una matriz cuadrática de adyacencia:
     \begin{equation}
         \text{Posiciones} = N \times N = 200.000 \times 200.000 = 40.000.000.000 = 4 \times 10^{10} \text{ elementos}
     \end{equation}
-    \item Empleando el tipo estándar \texttt{float} (IEEE 754 de 32 bits, 4 bytes por elemento):
+    \item Empleando el tipo estándar \texttt{float} (IEEE 754 de precisión simple de 32 bits, 4 bytes por elemento):
     \begin{align}
         \text{Memoria}(D) &= 4 \times 10^{10} \times 4\text{ bytes} = 160 \times 10^9\text{ bytes} \notag \\
-        &= \mathbf{160\text{ GB (base 10)}} \approx \mathbf{149.01\text{ GiB}}
+        &= \mathbf{160\text{ GB (base 10)}} \approx \mathbf{149.01\text{ GiB (base 2)}}
     \end{align}
-    \item Si se almacenara conjuntamente la matriz de feromonas $T$, se requerirían \textbf{$320\text{ GB}$ de RAM}.
+    \item Si se almacenara de forma análoga la matriz densa de rastros de feromona $T \in \mathbb{R}^{N \times N}$, el requerimiento total de almacenamiento físico ascendería a:
+    \begin{align}
+        \text{Memoria Total Densa} &= \text{Memoria}(D) + \text{Memoria}(T) \notag \\
+        &= 160\text{ GB} + 160\text{ GB} = \mathbf{320\text{ GB de RAM}}
+    \end{align}
+    \item \textbf{Consecuencia en la práctica:} Una estación de trabajo estándar de laboratorio o un computador portátil cuenta comúnmente con $8\text{ GB}$, $16\text{ GB}$ o $32\text{ GB}$ de RAM. La invocación ingenua de \texttt{new float[N][N]} para $N = 200.000$ provoca de inmediato una excepción crítica \texttt{std::bad\_alloc} o la activación del \emph{Out-Of-Memory (OOM) Killer} del kernel de Linux, abortando el proceso sin ejecutar una sola hormiga.
 \end{itemize}
 
-\subsection{Las Cuatro Estrategias de Ahorro que Logran 8.2 MB}
-En \texttt{aco.cpp} se introdujeron cuatro soluciones técnicas para eliminar el término $O(N^2)$:
+\subsection{Representación del Estado: Teoría del PDF de Clase vs. Implementación Práctica}
+\label{sec:estado_teoria_vs_practica}
+
+\subsubsection{¿Qué especifica formalmente el documento docente de la clase?}
+En el documento guía de la asignatura (\texttt{07\_IA\_2026\_2.pdf}, Sesión 07 de Inteligencia de Enjambre), se establece que el \textbf{estado del algoritmo ACO} se modela formalmente mediante dos matrices bidimensionales:
 \begin{enumerate}
-    \item \textbf{Cálculo de distancias euclidianas al vuelo ($O(1)$ de memoria):} No se almacena ninguna matriz de distancias. La función \texttt{distCity} calcula $\sqrt{\Delta x^2 + \Delta y^2}$ mediante instrucciones vectoriales (\texttt{sqrtf} con \texttt{-march=native}) únicamente cuando se requiere evaluar una arista.
-    \item \textbf{Feromona dispersa $O(N \cdot k)$:} Cada ciudad solo guarda feromona hacia sus $k=8$ vecinos espaciales más próximos ($k$-NN):
-    \begin{equation}
-        \text{Memoria}(\tau) = N \times k \times 4\text{ bytes} = 200.000 \times 8 \times 4 = \mathbf{6.4\text{ MB}}
-    \end{equation}
-    reduciendo el tamaño en un factor de $25.000\times$.
-    \item \textbf{Descomposición celular espacial (\emph{Divide y Vencerás}):} El plano se fracciona en una grilla de $15 \times 15 = 225$ celdas de $\approx 889$ ciudades. Dentro de cada celda, la feromona local ocupa apenas $889 \times 8 \times 4 \approx \mathbf{28.4\text{ KB}}$.
-    \item \textbf{Estructuras de datos lineales y tipos compactos:}
+    \item \textbf{Matriz de Distancias $D = [d_{ij}] \in \mathbb{R}^{N \times N}$:} Contiene la distancia de separación entre cada par ordenado de ciudades $(i, j)$, empleada para computar la visibilidad heurística local $\eta_{ij} = 1/d_{ij}$.
+    \item \textbf{Matriz de Feromonas $T = [\tau_{ij}] \in \mathbb{R}^{N \times N}$:} Contiene la concentración de rastro químico acumulado en cada arista $(i, j)$, representando la memoria adaptativa colectiva de la colonia.
+\end{enumerate}
+
+\subsubsection{¿Cuál usamos en nuestro código? ¿La de distancias o la de feromonas?}
+Esta es una de las preguntas cardinales en la evaluación técnica del proyecto. La respuesta arquitectónica implementada en \texttt{aco.cpp} es:
+
+\begin{itemize}
+    \item \textbf{La Matriz de Distancias $D$ NO se almacena físicamente (es una Matriz Virtual / Implícita):}
+    \begin{itemize}
+        \item \emph{Fundamento matemático:} En el TSP euclidiano en $\mathbb{R}^2$, las distancias son totalmente deterministas a partir de las coordenadas cartesianas de los vértices:
+        \begin{equation}
+            d_{ij} = \sqrt{(x_i - x_j)^2 + (y_i - y_j)^2}
+        \end{equation}
+        \item \emph{Ahorro en memoria:} Las coordenadas de las $200.000$ ciudades caben en un vector de solo $200.000 \times 8\text{ bytes} = \mathbf{1.6\text{ MB}}$. Crear una tabla estática de $160\text{ GB}$ representaría un desperdicio del $99.999\%$ de la memoria para almacenar información redundante que ya está presente en las coordenadas.
+        \item \emph{Cálculo al vuelo:} La función \texttt{distCity(a, b)} evalúa la distancia euclidiana en el registro de la CPU en $\approx 3$ nanosegundos mediante instrucciones SIMD vectoriales (\texttt{sqrtf}). El costo de almacenamiento auxiliar en RAM de la matriz de distancias es \textbf{$0\text{ bytes}$}.
+    \end{itemize}
+
+    \item \textbf{La Matriz de Feromonas $T$ SÍ existe en memoria, pero de forma DISPERSA ($k$-NN):}
+    \begin{itemize}
+        \item \emph{Fundamento bio-inspirado:} En una colonia real de hormigas o en grafos espaciales extensos, una hormiga situada en una ciudad $i$ jamás escogerá viajar en línea recta hacia una ciudad al otro extremo del mapa si existen ciudades vecinas aún no visitadas. La probabilidad de transición hacia nodos lejanos es infinitesimal por el factor heurístico $\eta_{ij}^\beta \to 0$.
+        \item \emph{Estructura dispersa:} Cada nodo conserva feromona únicamente hacia sus $k=8$ vecinos geométricos más próximos ($k$-NN):
+        \begin{equation}
+            \text{Memoria}(T_{\text{dispersa}}) = N \times k \times 4\text{ bytes} = 200.000 \times 8 \times 4\text{ B} = \mathbf{6.4\text{ MB}}
+        \end{equation}
+        \item \emph{Tratamiento de aristas no listadas:} Todas las demás aristas entre nodos no adyacentes en el grafo de candidatos poseen implícitamente el nivel base de feromona $\tau_0 = 1.0$. No se malgasta RAM reservando miles de millones de flotantes con valor $1.0$.
+        \item \emph{Subgrafo celular:} En la escala de $200.000$ ciudades con partición en grilla ($15 \times 15 = 225$ celdas de $\approx 889$ nodos), la matriz de feromonas local por celda ocupa apenas $889 \times 8 \times 4\text{ B} \approx \mathbf{28.4\text{ KB}}$, permitiendo que la totalidad de la matriz quepa en la memoria caché L1/L2 del procesador.
+    \end{itemize}
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Comparativa rigurosa: Estado Teórico según PDF Docente vs. Implementación en C++ (\texttt{aco.cpp}).}
+\label{tab:comparativa_matrices}
+\resizebox{\linewidth}{!}{
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Componente} & \textbf{Definición en PDF} & \textbf{Forma Teórica Densa} & \textbf{Implementación en C++} & \textbf{RAM Utilizada} & \textbf{Razón Técnica} \\
+\midrule
+\textbf{Matriz de Distancias ($D$)} & Matriz $N \times N$ & $200.000 \times 200.000 \times 4\text{ B} = \mathbf{160\text{ GB}}$ & \textbf{Virtual / Implícita} (\texttt{distCity}) & \textbf{0 MB} & Redundante; deducible de coords ($1.6\text{ MB}$) en $3\text{ ns}$. \\
+\textbf{Matriz de Feromonas ($T$)} & Matriz $N \times N$ & $200.000 \times 200.000 \times 4\text{ B} = \mathbf{160\text{ GB}}$ & \textbf{Dispersa $k$-NN} ($k=8$) & \textbf{6.4 MB} & Concentración en aristas viables; $\tau_0$ implícito en resto. \\
+\textbf{Subproblema Celular} & No contemplado & No aplica & Matriz local por celda ($889 \times 8$) & \textbf{28.4 KB} & Divide y Vencerás; cabe en memoria caché L1/L2. \\
+\midrule
+\textbf{Demanda Combinada} & $(D, T)$ densas & \textbf{320.000 MB = 320 GB} & Distancia al vuelo + Feromona $k$-NN & \textbf{6.4 MB} & \textbf{Ahorro de $50.000\times$ frente al estado denso teórico.} \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\subsection{Las Cuatro Estrategias de Ahorro que Logran 8.21 MB Reales}
+En \texttt{aco.cpp} se integraron cuatro soluciones arquitectónicas que eliminan definitivamente la sobrecarga $O(N^2)$:
+\begin{enumerate}
+    \item \textbf{Cálculo de distancias euclidianas al vuelo ($O(1)$ de memoria auxiliar):} No se instancia ninguna matriz de distancias. La función \texttt{distCity} calcula $\sqrt{\Delta x^2 + \Delta y^2}$ mediante instrucciones vectoriales (\texttt{sqrtf} con \texttt{-march=native}) únicamente cuando se requiere evaluar una arista candidata.
+    \item \textbf{Feromona dispersa sobre candidatos $k$-NN ($O(N \cdot k)$):} Cada ciudad solo almacena feromona hacia sus $k=8$ vecinos espaciales más próximos, requiriendo $6.4\text{ MB}$ para las $200.000$ ciudades ($25.000\times$ menos que una matriz densa individual).
+    \item \textbf{Descomposición celular espacial (\emph{Divide y Vencerás}):} El plano se fracciona en una grilla de $15 \times 15 = 225$ celdas de $\approx 889$ ciudades. Dentro de cada celda, la feromona local ocupa apenas $889 \times 8 \times 4 \approx \mathbf{28.4\text{ KB}}$, reutilizando el buffer de trabajo.
+    \item \textbf{Estructuras de datos lineales y tipos primitivos compactos:}
     \begin{itemize}
         \item Coordenadas \texttt{City}: dos \texttt{float} ($8$ bytes por ciudad) $\implies 200.000 \times 8 = \mathbf{1.6\text{ MB}}$.
         \item Permutaciones e índices en \texttt{int32\_t} ($4$ bytes) $\implies 200.000 \times 4 = \mathbf{0.8\text{ MB}}$.
         \item Memoria tabú de visitados en \texttt{uint8\_t} ($1$ byte por ciudad) $\implies 200.000 \times 1 = \mathbf{0.2\text{ MB}}$.
     \end{itemize}
 \end{enumerate}
-Sumando el espacio del binario cargado, el pool de hilos de OpenMP y los buffers temporales, el kernel de Linux reporta un pico absoluto de memoria (\texttt{VmHWM}) de tan solo \textbf{$8.21\text{ MB}$}.
+Sumando el espacio del binario cargado, el pool de hilos de OpenMP y los buffers temporales, el kernel de Linux reporta a través de \texttt{/proc/self/status} (\texttt{VmHWM}) un pico absoluto de memoria residente de tan solo \textbf{$8.21\text{ MB}$}.
+
+\subsection{Guión de Preguntas y Respuestas Clave para la Sustentación Oral}
+
+\begin{sustentacionbox}[Pregunta 1 del Profesor: ¿Dónde están las dos matrices $N \times N$ ($D$ y $T$) que exige la teoría del ACO?]
+\textbf{Respuesta del Estudiante:}
+\begin{quote}
+``Profesor, en la formulación clásica del ACO, el estado se representa matemáticamente por la matriz de distancias $D$ y la de feromonas $T$. Sin embargo, para $N = 200.000$, cada matriz densa requeriría $160\text{ GB}$ de RAM física, sumando $320\text{ GB}$ en total. Ninguna máquina de escritorio puede instanciar esa memoria sin sufrir un \emph{Out-Of-Memory Crash}.
+
+Por esta razón, en nuestra implementación aplicamos una optimización de sistemas rigurosa:
+\begin{itemize}
+    \item \textbf{La matriz de distancias $D$ es una matriz implícita o virtual:} como el espacio es euclidiano 2D, las distancias están totalmente determinadas por las coordenadas de los nodos, que solo pesan $1.6\text{ MB}$. La función \texttt{distCity} calcula la distancia al vuelo en nanosegundos utilizando instrucciones vectoriales de la CPU, ahorrando el $100\%$ de los $160\text{ GB}$.
+    \item \textbf{La matriz de feromonas $T$ es una matriz dispersa ($k$-NN):} en lugar de $200.000 \times 200.000$, guardamos feromona únicamente hacia los $k=8$ vecinos geométricos más cercanos de cada ciudad, ocupando apenas $6.4\text{ MB}$. Las aristas lejanas tienen teóricamente el rastro base $\tau_0$, por lo que no es necesario desperdiciar memoria guardándolas. Además, mediante la descomposición celular, la colonia resuelve subgrafos donde la feromona local pesa apenas $28.4\text{ KB}$, cabiendo enteramente en la caché L1 del procesador.''
+\end{itemize}
+\end{quote}
+\end{sustentacionbox}
+
+\begin{sustentacionbox}[Pregunta 2 del Profesor: ¿Calcular las distancias al vuelo no es mucho más lento que tenerlas precálculadas en una matriz?]
+\textbf{Respuesta del Estudiante:}
+\begin{quote}
+``Intuitivamente podría parecerlo, pero en arquitecturas de computadores modernas ocurre exactamente lo contrario debido a la barrera de la memoria (\emph{Memory Wall}):
+\begin{itemize}
+    \item Si tuviéramos una matriz de $160\text{ GB}$, cada acceso a una celda aleatoria generaría un fallo de memoria caché de nivel 3 (\emph{L3 Cache Miss}). Traer un dato desde la memoria principal RAM toma entre $50$ y $100$ nanosegundos.
+    \item En cambio, calcular \texttt{sqrtf} con las coordenadas cargadas en los registros vectoriales SIMD de la CPU toma entre $3$ y $5$ nanosegundos.
+\end{itemize}
+Por lo tanto, calcular al vuelo no solo ahorra $160\text{ GB}$ de RAM, sino que es entre $\mathbf{10\times}$ y $\mathbf{20\times}$ más rápido que leer una matriz gigantesca desde la RAM.''
+\end{quote}
+\end{sustentacionbox}
+
+\begin{sustentacionbox}[Pregunta 3 del Profesor: ¿Reducir la feromona a $k=8$ vecinos no perjudica la convergencia global del ACO?]
+\textbf{Respuesta del Estudiante:}
+\begin{quote}
+``No, profesor. En el TSP euclidiano, la literatura clásica (Dorigo y Gambardella en \emph{Ant Colony System}) y la geometría computacional demuestran que las aristas de un tour óptimo conectan casi exclusivamente ciudades pertenecientes a los primeros vecinos espaciales ($k$-NN). Aristas que crucen todo el mapa tendrían visibilidad $\eta = 1/d \to 0$, por lo que su probabilidad de elección por la ruleta sería insignificante.
+
+Adicionalmente, nuestro código cuenta con un mecanismo de seguridad (\emph{fallback} greedy \texttt{pickNearest}): si en una situación atípica los $k$ candidatos ya fueron visitados, la hormiga busca la ciudad libre más cercana, garantizando al $100\%$ que el recorrido final sea un ciclo hamiltoniano válido sin bucles ni ciudades duplicadas.''
+\end{quote}
+\end{sustentacionbox}
 
 % ==============================================================================
 \section{Formulación del Algoritmo ACO (PDF Guía §14--§22)}
