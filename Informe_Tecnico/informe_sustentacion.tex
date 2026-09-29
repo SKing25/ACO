@@ -89,7 +89,7 @@ El Problema del Viajante de Comercio (TSP) busca el ciclo cerrado de longitud m�
 \end{equation}
 donde $d(a, b) = \sqrt{(a_x - b_x)^2 + (a_y - b_y)^2}$ es la distancia euclidiana entre las ciudades $a$ y $b$ distribuidas en el plano unitario $[0, 1]^2$.
 
-\subsection{La Explosión Factorial (PDF Guía §9--§10)}
+\subsection{La Explosión Factorial del Espacio de Búsqueda}
 Para un grafo no dirigido completo, el número de aristas posibles es $|E| = N(N-1)/2$ y la cantidad de recorridos cíclicos posibles en el espacio de búsqueda es:
 \begin{equation}
     |\Pi| = \frac{(N-1)!}{2}
@@ -146,11 +146,11 @@ Para una instancia canónica de orden $N = 200.000$ ciudades:
     \item \textbf{Consecuencia en la práctica:} Una estación de trabajo estándar de laboratorio o un computador portátil cuenta comúnmente con $8\text{ GB}$, $16\text{ GB}$ o $32\text{ GB}$ de RAM. La invocación ingenua de \texttt{new float[N][N]} para $N = 200.000$ provoca de inmediato una excepción crítica \texttt{std::bad\_alloc} o la activación del \emph{Out-Of-Memory (OOM) Killer} del kernel de Linux, abortando el proceso sin ejecutar una sola hormiga.
 \end{itemize}
 
-\subsection{Representación del Estado: Teoría del PDF de Clase vs. Implementación Práctica}
+\subsection{Representación del Estado: Modelo Teórico Clásico vs. Implementación Práctica}
 \label{sec:estado_teoria_vs_practica}
 
-\subsubsection{¿Qué especifica formalmente el documento docente de la clase?}
-En el documento guía de la asignatura (\texttt{07\_IA\_2026\_2.pdf}, Sesión 07 de Inteligencia de Enjambre), se establece que el \textbf{estado del algoritmo ACO} se modela formalmente mediante dos matrices bidimensionales:
+\subsubsection{¿Qué especifica formalmente el modelo canónico del ACO?}
+En la formulación teórica clásica del algoritmo ACO para el TSP, se establece que el \textbf{estado del sistema} se modela formalmente mediante dos matrices bidimensionales:
 \begin{enumerate}
     \item \textbf{Matriz de Distancias $D = [d_{ij}] \in \mathbb{R}^{N \times N}$:} Contiene la distancia de separación entre cada par ordenado de ciudades $(i, j)$, empleada para computar la visibilidad heurística local $\eta_{ij} = 1/d_{ij}$.
     \item \textbf{Matriz de Feromonas $T = [\tau_{ij}] \in \mathbb{R}^{N \times N}$:} Contiene la concentración de rastro químico acumulado en cada arista $(i, j)$, representando la memoria adaptativa colectiva de la colonia.
@@ -184,12 +184,12 @@ Esta es una de las preguntas cardinales en la evaluación técnica del proyecto.
 
 \begin{table}[H]
 \centering
-\caption{Comparativa rigurosa: Estado Teórico según PDF Docente vs. Implementación en C++ (\texttt{aco.cpp}).}
+\caption{Comparativa rigurosa: Estado Teórico Clásico vs. Implementación Práctica en C++ (\texttt{aco.cpp}).}
 \label{tab:comparativa_matrices}
 \resizebox{\linewidth}{!}{
 \begin{tabular}{lccccc}
 \toprule
-\textbf{Componente} & \textbf{Definición en PDF} & \textbf{Forma Teórica Densa} & \textbf{Implementación en C++} & \textbf{RAM Utilizada} & \textbf{Razón Técnica} \\
+\textbf{Componente} & \textbf{Definición Teórica Clásica} & \textbf{Forma Teórica Densa} & \textbf{Implementación en C++} & \textbf{RAM Utilizada} & \textbf{Razón Técnica} \\
 \midrule
 \textbf{Matriz de Distancias ($D$)} & Matriz $N \times N$ & $200.000 \times 200.000 \times 4\text{ B} = \mathbf{160\text{ GB}}$ & \textbf{Virtual / Implícita} (\texttt{distCity}) & \textbf{0 MB} & Redundante; deducible de coords ($1.6\text{ MB}$) en $3\text{ ns}$. \\
 \textbf{Matriz de Feromonas ($T$)} & Matriz $N \times N$ & $200.000 \times 200.000 \times 4\text{ B} = \mathbf{160\text{ GB}}$ & \textbf{Dispersa $k$-NN} ($k=8$) & \textbf{6.4 MB} & Concentración en aristas viables; $\tau_0$ implícito en resto. \\
@@ -253,12 +253,12 @@ Adicionalmente, nuestro código cuenta con un mecanismo de seguridad (\emph{fall
 \end{sustentacionbox}
 
 % ==============================================================================
-\section{Formulación del Algoritmo ACO (PDF Guía §14--§22)}
+\section{Formulación Canónica del Algoritmo ACO}
 % ==============================================================================
 
-El algoritmo sigue rigurosamente las ecuaciones del pseudocódigo de la asignatura (documento guía \texttt{07\_IA\_2026\_2.pdf}):
+El algoritmo sigue rigurosamente las ecuaciones del modelo canónico de optimización por colonia de hormigas:
 
-\subsection{Visibilidad Heurística y Regla de la Ruleta (§14--§17)}
+\subsection{Visibilidad Heurística y Regla de la Ruleta}
 La deseabilidad heurística es el inverso de la distancia:
 \begin{equation}
     \eta_{ij} = \frac{1}{d(c_i, c_j) + 10^{-9}}
@@ -269,7 +269,7 @@ Cuando la hormiga se encuentra en la ciudad $i$, la probabilidad de elegir la si
 \end{equation}
 donde $\alpha = 1.0$ (peso de la feromona) y $\beta = 2.0$ (peso de la heurística geométrica). La selección estocástica se realiza acumulando probabilidades sobre la ruleta: $r \sim \mathcal{U}[0, \sum p)$.
 
-\subsection{Doble Feromona con Asimetría de Magnitudes (§18--§20)}
+\subsection{Doble Feromona con Asimetría de Magnitudes}
 \begin{enumerate}
     \item \textbf{Feromona Local (Magnitud Pequeña, $\xi = 0.10$):} Cada vez que una hormiga atraviesa la arista $(i, j)$ paso a paso, se reduce la feromona según:
     \begin{equation}
@@ -287,7 +287,7 @@ donde $\alpha = 1.0$ (peso de la feromona) y $\beta = 2.0$ (peso de la heurísti
     con acotamiento de seguridad $[\tau_{\min}, \tau_{\max}] = [0.05, 5.0]$ al estilo \emph{MAX-MIN Ant System} (MMAS).
 \end{enumerate}
 
-\subsection{Criterio de Parada Temprana (\texorpdfstring{$S$}{S} Iteraciones sin Mejora, §22)}
+\subsection{Criterio de Parada Temprana (\texorpdfstring{$S$}{S} Iteraciones sin Mejora)}
 Si la colonia transcurre $S$ iteraciones consecutivas sin reducir la mejor longitud global, el algoritmo finaliza anticipadamente para evitar desperdicio de cómputo.
 
 % ==============================================================================
@@ -659,12 +659,12 @@ Se ejecutó un barrido experimental completo (\texttt{barrido.py}) evaluando 9 e
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{fig_tours.png}
-    \caption{Visualización espacial de los tours para $N=20$ (denso), $N=2.000$ (disperso + 2-opt) y $N=200.000$ (jerárquico con muestra de $5.000$ puntos y recorrido diezmado).}
+    \caption{Visualización espacial de los circuitos: $N=20$ (régimen denso) y $N=2.000$ (disperso $k$-NN + 2-opt) en el panel superior, y $N=200.000$ en la sección inferior ilustrando el recorrido hamiltoniano completo de las 200.000 ciudades ($L=479.25$).}
     \label{fig:tours}
 \end{figure}
 
 \subsection{Robustez Multi-Semilla y Estudio de Ablación (Figura~\ref{fig:semillas})}
-Siguiendo la pauta metodológica de la guía (diapositivas §23 y §27), se evaluaron múltiples semillas aleatorias independientes:
+Siguiendo las pautas metodológicas de reproducibilidad experimental, se evaluaron múltiples semillas aleatorias independientes:
 
 \begin{table}[H]
 \centering

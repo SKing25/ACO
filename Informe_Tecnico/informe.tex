@@ -62,7 +62,7 @@ donde $c_i = (x_i, y_i) \in [0, 1]^2$ denota las coordenadas de cada ciudad en e
     d(c_i, c_j) = \sqrt{(x_i - x_j)^2 + (y_i - y_j)^2}
 \end{equation}
 
-\subsection{Intratabilidad y Crecimiento Factorial (PDF Guía §9--§10)}
+\subsection{Intratabilidad y Crecimiento Factorial del Espacio de Soluciones}
 En un grafo completo no dirigido con $N$ nodos, la cardinalidad del conjunto de aristas es $|E| = N(N-1)/2$. La dimensión del espacio de configuraciones factibles $|\Pi|$ escala factorialmente conforme a:
 \begin{equation}
     |\Pi| = \frac{(N-1)!}{2}
@@ -133,12 +133,12 @@ Con el objetivo de garantizar la resolución local en memoria física principal 
 Integrando la sobrecarga del binario ejecutable, las estructuras de control de hilos en OpenMP y los buffers temporales, el kernel de Linux reporta en \texttt{/proc/self/status} (\texttt{VmHWM}) un pico absoluto de memoria residente de tan solo \textbf{$8.21\text{ MB}$}.
 
 % ==============================================================================
-\section{Formulación del Algoritmo ACO (PDF Guía §14--§22)}
+\section{Formulación del Algoritmo de Colonia de Hormigas (ACO)}
 % ==============================================================================
 
-El algoritmo implementado se fundamenta en las formulaciones analíticas del modelo canónico estipulado en la documentación docente (\texttt{07\_IA\_2026\_2.pdf}):
+El algoritmo implementado se fundamenta en las formulaciones analíticas del modelo canónico de optimización por colonia de hormigas:
 
-\subsection{Visibilidad Heurística y Regla de Transición Probabilística (§14--§17)}
+\subsection{Visibilidad Heurística y Regla de Transición Probabilística}
 La deseabilidad heurística local $\eta_{ij}$ se define como el recíproco de la distancia euclidiana:
 \begin{equation}
     \eta_{ij} = \frac{1}{d(c_i, c_j) + 10^{-9}}
@@ -149,7 +149,7 @@ Estando la hormiga en el nodo $i$, la probabilidad de seleccionar la ciudad subs
 \end{equation}
 donde $\alpha = 1.0$ representa el peso del aprendizaje estocástico colectivo y $\beta = 2.0$ cuantifica la prioridad asignada a la proximidad geométrica. La selección estocástica se realiza acumulando probabilidades sobre la distribución empírica con una variable aleatoria uniforme $r \sim \mathcal{U}[0, \sum p)$.
 
-\subsection{Esquema Dual Asimétrico de Feromonas (§18--§20)}
+\subsection{Esquema Dual Asimétrico de Feromonas}
 Se aplica una doble dinámica de señalización química con funciones asimétricas de exploración e intensificación:
 \begin{enumerate}
     \item \textbf{Atenuación Local Exploratoria ($\xi = 0.10$):} Cada vez que un agente transita la arista $(i, j)$ durante la construcción incremental del tour, se atenúa su valor de feromona:
@@ -168,7 +168,7 @@ Se aplica una doble dinámica de señalización química con funciones asimétri
     incorporando cotas de confinamiento $[\tau_{\min}, \tau_{\max}] = [0.05, 5.0]$ al estilo \emph{MAX-MIN Ant System} (MMAS) para evitar tanto la congelación como la divergencia de los valores químicos.
 \end{enumerate}
 
-\subsection{Criterio de Parada Anticipada (\texorpdfstring{$S$}{S} Iteraciones sin Mejora, §22)}
+\subsection{Criterio de Parada Anticipada (\texorpdfstring{$S$}{S} Iteraciones sin Mejora)}
 Si la colonia transcurre $S$ iteraciones consecutivas sin registrar una reducción estricta en la longitud global $L_{\text{global}}$, la ejecución se interrumpe, optimizando el presupuesto temporal una vez alcanzada la estabilización del enjambre.
 
 % ==============================================================================
@@ -377,13 +377,13 @@ $200.000$ & $200.000$ & $2$ & $400.000$ & $64.832\text{ s}$ & $479.30$ & \textbf
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{fig_tours.png}
-    \caption{Visualización espacial de los circuitos para $N=20$ (régimen denso), $N=2.000$ (disperso $k$-NN + 2-opt) y $N=200.000$ (jerárquico con muestra de $5.000$ puntos y recorrido diezmado).}
+    \caption{Visualización espacial de los circuitos: $N=20$ (régimen denso) y $N=2.000$ (disperso $k$-NN + 2-opt) en el panel superior, y $N=200.000$ en la sección inferior ilustrando el recorrido hamiltoniano completo de las 200.000 ciudades ($L=479.25$).}
     \label{fig:tours}
 \end{figure}
 La Figura~\ref{fig:tours} evidencia la preservación de la regularidad geométrica sin cruces subóptimos macroscópicos a lo largo de las distintas escalas.
 
 \subsection{Robustez Multi-Semilla y Estudio de Ablación}
-Siguiendo las directrices metodológicas de reproducibilidad (§23 y §27 de la guía docente), se efectuaron corridas con generadores de números pseudoaleatorios independientes:
+Siguiendo las directrices metodológicas de reproducibilidad experimental, se efectuaron corridas con generadores de números pseudoaleatorios independientes:
 
 \begin{table}[H]
 \centering

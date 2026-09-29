@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.3.29)  28 SEP 2026 13:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian) (preloaded format=pdflatex 2026.3.29)  28 SEP 2026 19:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -936,222 +936,204 @@ LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 3.
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
-.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
+0.
 
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 37.
-
-
-[2])
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 30.
+)
 \tf@toc=\write5
 \openout5 = `informe_sustentacion.toc'.
 
 
 
-[3]
+[2]
 
-[4{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}]
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 154.
+[3{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
+65.
 
+(/usr/share/texmf/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+
+[4{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}]
 
 [5]
 
 [6]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
-41.
- (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
 
 [7]
-
-[8{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}]
-
-[9]
-
-[10]
-
-[11]
-<img/vscode_editor_real.png, id=341, 918.43124pt x 913.4125pt>
+<img/vscode_editor_real.png, id=279, 918.43124pt x 913.4125pt>
 File: img/vscode_editor_real.png Graphic file (type png)
 <use img/vscode_editor_real.png>
-Package pdftex.def Info: img/vscode_editor_real.png  used on input line 413.
+Package pdftex.def Info: img/vscode_editor_real.png  used on input line 328.
 (pdftex.def)             Requested size: 386.96027pt x 384.8432pt.
 
 
-[12]
-<img/code_snippets/sec01_config.png, id=352, 1003.75pt x 523.9575pt>
+[8]
+<img/code_snippets/sec01_config.png, id=291, 1003.75pt x 523.9575pt>
 File: img/code_snippets/sec01_config.png Graphic file (type png)
 <use img/code_snippets/sec01_config.png>
 Package pdftex.def Info: img/code_snippets/sec01_config.png  used on input line
- 427.
+ 342.
 (pdftex.def)             Requested size: 418.82375pt x 218.62955pt.
 
 
-[13 <./img/vscode_editor_real.png>]
-<img/code_snippets/sec02_memory.png, id=359, 1003.75pt x 425.59pt>
+[9 <./img/vscode_editor_real.png>]
+<img/code_snippets/sec02_memory.png, id=297, 1003.75pt x 425.59pt>
 File: img/code_snippets/sec02_memory.png Graphic file (type png)
 <use img/code_snippets/sec02_memory.png>
 Package pdftex.def Info: img/code_snippets/sec02_memory.png  used on input line
- 443.
+ 358.
 (pdftex.def)             Requested size: 418.82375pt x 177.58415pt.
 
 
-[14 <./img/code_snippets/sec01_config.png>]
-<img/code_snippets/sec03_instance.png, id=366, 1003.75pt x 622.325pt>
+[10 <./img/code_snippets/sec01_config.png>]
+<img/code_snippets/sec03_instance.png, id=305, 1003.75pt x 622.325pt>
 File: img/code_snippets/sec03_instance.png Graphic file (type png)
 <use img/code_snippets/sec03_instance.png>
 Package pdftex.def Info: img/code_snippets/sec03_instance.png  used on input li
-ne 456.
+ne 371.
 (pdftex.def)             Requested size: 418.82375pt x 259.67494pt.
 
 
-[15 <./img/code_snippets/sec02_memory.png> <./img/code_snippets/sec03_instance.
+[11 <./img/code_snippets/sec02_memory.png> <./img/code_snippets/sec03_instance.
 png>]
-<img/code_snippets/sec04_knn.png, id=375, 1003.75pt x 622.325pt>
+<img/code_snippets/sec04_knn.png, id=314, 1003.75pt x 622.325pt>
 File: img/code_snippets/sec04_knn.png Graphic file (type png)
 <use img/code_snippets/sec04_knn.png>
-Package pdftex.def Info: img/code_snippets/sec04_knn.png  used on input line 46
-9.
+Package pdftex.def Info: img/code_snippets/sec04_knn.png  used on input line 38
+3.
 (pdftex.def)             Requested size: 418.82375pt x 259.67494pt.
-<img/code_snippets/sec05a_candidate.png, id=376, 1003.75pt x 700.6175pt>
+<img/code_snippets/sec05a_candidate.png, id=315, 1003.75pt x 700.6175pt>
 File: img/code_snippets/sec05a_candidate.png Graphic file (type png)
 <use img/code_snippets/sec05a_candidate.png>
 Package pdftex.def Info: img/code_snippets/sec05a_candidate.png  used on input 
-line 483.
+line 397.
 (pdftex.def)             Requested size: 218.51521pt x 152.52205pt.
-<img/code_snippets/sec05b_nearest.png, id=377, 1003.75pt x 641.39626pt>
+<img/code_snippets/sec05b_nearest.png, id=316, 1003.75pt x 641.39626pt>
 File: img/code_snippets/sec05b_nearest.png Graphic file (type png)
 <use img/code_snippets/sec05b_nearest.png>
 Package pdftex.def Info: img/code_snippets/sec05b_nearest.png  used on input li
-ne 488.
+ne 402.
 (pdftex.def)             Requested size: 218.51521pt x 139.62978pt.
-<img/code_snippets/sec05c_phero_ops.png, id=378, 1003.75pt x 425.59pt>
+<img/code_snippets/sec05c_phero_ops.png, id=317, 1003.75pt x 425.59pt>
 File: img/code_snippets/sec05c_phero_ops.png Graphic file (type png)
 <use img/code_snippets/sec05c_phero_ops.png>
 Package pdftex.def Info: img/code_snippets/sec05c_phero_ops.png  used on input 
-line 494.
+line 408.
 (pdftex.def)             Requested size: 295.90588pt x 125.46353pt.
 
 
-[16 <./img/code_snippets/sec04_knn.png>]
-<img/code_snippets/sec06a_aco_loop.png, id=385, 1003.75pt x 896.34875pt>
+[12 <./img/code_snippets/sec04_knn.png>]
+<img/code_snippets/sec06a_aco_loop.png, id=324, 1003.75pt x 896.34875pt>
 File: img/code_snippets/sec06a_aco_loop.png Graphic file (type png)
 <use img/code_snippets/sec06a_aco_loop.png>
 Package pdftex.def Info: img/code_snippets/sec06a_aco_loop.png  used on input l
-ine 511.
+ine 425.
 (pdftex.def)             Requested size: 236.72888pt x 211.39423pt.
-<img/code_snippets/sec06b_aco_update.png, id=386, 1003.75pt x 602.25pt>
+<img/code_snippets/sec06b_aco_update.png, id=325, 1003.75pt x 602.25pt>
 File: img/code_snippets/sec06b_aco_update.png Graphic file (type png)
 <use img/code_snippets/sec06b_aco_update.png>
 Package pdftex.def Info: img/code_snippets/sec06b_aco_update.png  used on input
- line 516.
+ line 430.
 (pdftex.def)             Requested size: 204.85846pt x 122.91066pt.
 
 
-[17 <./img/code_snippets/sec05a_candidate.png> <./img/code_snippets/sec05b_near
+[13 <./img/code_snippets/sec05a_candidate.png> <./img/code_snippets/sec05b_near
 est.png> <./img/code_snippets/sec05c_phero_ops.png>]
-<img/code_snippets/sec07_2opt.png, id=395, 1003.75pt x 818.05624pt>
+<img/code_snippets/sec07_2opt.png, id=335, 1003.75pt x 818.05624pt>
 File: img/code_snippets/sec07_2opt.png Graphic file (type png)
 <use img/code_snippets/sec07_2opt.png>
-Package pdftex.def Info: img/code_snippets/sec07_2opt.png  used on input line 5
-33.
+Package pdftex.def Info: img/code_snippets/sec07_2opt.png  used on input line 4
+47.
 (pdftex.def)             Requested size: 418.82375pt x 341.34691pt.
 
 
-[18 <./img/code_snippets/sec06a_aco_loop.png> <./img/code_snippets/sec06b_aco_u
+[14 <./img/code_snippets/sec06a_aco_loop.png> <./img/code_snippets/sec06b_aco_u
 pdate.png>]
-<img/code_snippets/sec08a_grid.png, id=404, 1003.75pt x 857.2025pt>
+<img/code_snippets/sec08a_grid.png, id=344, 1003.75pt x 857.2025pt>
 File: img/code_snippets/sec08a_grid.png Graphic file (type png)
 <use img/code_snippets/sec08a_grid.png>
 Package pdftex.def Info: img/code_snippets/sec08a_grid.png  used on input line 
-546.
+460.
 (pdftex.def)             Requested size: 227.62206pt x 194.3795pt.
-<img/code_snippets/sec08b_stitch.png, id=405, 1003.75pt x 700.6175pt>
+<img/code_snippets/sec08b_stitch.png, id=345, 1003.75pt x 700.6175pt>
 File: img/code_snippets/sec08b_stitch.png Graphic file (type png)
 <use img/code_snippets/sec08b_stitch.png>
 Package pdftex.def Info: img/code_snippets/sec08b_stitch.png  used on input lin
-e 551.
+e 465.
 (pdftex.def)             Requested size: 213.96529pt x 149.34695pt.
 
 
-[19 <./img/code_snippets/sec07_2opt.png>]
-<img/code_snippets/sec09a_experimento.png, id=413, 1003.75pt x 1289.81876pt>
+[15 <./img/code_snippets/sec07_2opt.png>]
+<img/code_snippets/sec09a_experimento.png, id=352, 1003.75pt x 1289.81876pt>
 File: img/code_snippets/sec09a_experimento.png Graphic file (type png)
 <use img/code_snippets/sec09a_experimento.png>
 Package pdftex.def Info: img/code_snippets/sec09a_experimento.png  used on inpu
-t line 567.
+t line 481.
 (pdftex.def)             Requested size: 218.51521pt x 280.78917pt.
-<img/code_snippets/sec09b_main.png, id=414, 1003.75pt x 1132.23pt>
+<img/code_snippets/sec09b_main.png, id=353, 1003.75pt x 1132.23pt>
 File: img/code_snippets/sec09b_main.png Graphic file (type png)
 <use img/code_snippets/sec09b_main.png>
 Package pdftex.def Info: img/code_snippets/sec09b_main.png  used on input line 
-572.
+486.
 (pdftex.def)             Requested size: 218.51521pt x 246.48262pt.
 
 
-[20 <./img/code_snippets/sec08a_grid.png> <./img/code_snippets/sec08b_stitch.pn
+[16 <./img/code_snippets/sec08a_grid.png> <./img/code_snippets/sec08b_stitch.pn
 g>]
-Overfull \hbox (21.01393pt too wide) in paragraph at lines 581--582
-\T1/lmr/m/n/10.95 con-sul-ta la me-mo-ria fí-si-ca re-si-den-te (\T1/lmtt/m/n/1
-0.95 VmRSS\T1/lmr/m/n/10.95 ) y el pi-co his-tó-ri-co (\T1/lmtt/m/n/10.95 VmHWM
-\T1/lmr/m/n/10.95 ) vía \T1/lmtt/m/n/10.95 /proc/self/status\T1/lmr/m/n/10.95 .
- 
- []
-
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 587.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 499.
 
 
-[21 <./img/code_snippets/sec09a_experimento.png> <./img/code_snippets/sec09b_ma
+[17 <./img/code_snippets/sec09a_experimento.png> <./img/code_snippets/sec09b_ma
 in.png>]
 
-[22]
-<img/fig_tiempo.png, id=506, 505.89pt x 325.215pt>
+[18]
+<img/fig_tiempo.png, id=451, 505.89pt x 325.215pt>
 File: img/fig_tiempo.png Graphic file (type png)
 <use img/fig_tiempo.png>
-Package pdftex.def Info: img/fig_tiempo.png  used on input line 706.
+Package pdftex.def Info: img/fig_tiempo.png  used on input line 618.
 (pdftex.def)             Requested size: 218.51521pt x 140.4749pt.
-<img/fig_memoria.png, id=507, 505.89pt x 325.215pt>
+<img/fig_memoria.png, id=452, 505.89pt x 325.215pt>
 File: img/fig_memoria.png Graphic file (type png)
 <use img/fig_memoria.png>
-Package pdftex.def Info: img/fig_memoria.png  used on input line 712.
+Package pdftex.def Info: img/fig_memoria.png  used on input line 624.
 (pdftex.def)             Requested size: 218.51521pt x 140.4749pt.
 
 
-[23]
-<img/fig_calidad.png, id=522, 794.97pt x 303.534pt>
+[19 <./img/fig_tiempo.png> <./img/fig_memoria.png>]
+<img/fig_calidad.png, id=464, 794.97pt x 303.534pt>
 File: img/fig_calidad.png Graphic file (type png)
 <use img/fig_calidad.png>
-Package pdftex.def Info: img/fig_calidad.png  used on input line 728.
+Package pdftex.def Info: img/fig_calidad.png  used on input line 640.
 (pdftex.def)             Requested size: 218.51521pt x 83.43272pt.
-<img/fig_hormigas.png, id=523, 505.89pt x 303.534pt>
+<img/fig_hormigas.png, id=465, 505.89pt x 303.534pt>
 File: img/fig_hormigas.png Graphic file (type png)
 <use img/fig_hormigas.png>
-Package pdftex.def Info: img/fig_hormigas.png  used on input line 734.
+Package pdftex.def Info: img/fig_hormigas.png  used on input line 646.
 (pdftex.def)             Requested size: 218.51521pt x 131.10991pt.
-<img/fig_tours.png, id=526, 1084.05pt x 325.215pt>
+<img/fig_tours.png, id=468, 794.97pt x 686.565pt>
 File: img/fig_tours.png Graphic file (type png)
 <use img/fig_tours.png>
-Package pdftex.def Info: img/fig_tours.png  used on input line 749.
-(pdftex.def)             Requested size: 432.48051pt x 129.74129pt.
+Package pdftex.def Info: img/fig_tours.png  used on input line 661.
+(pdftex.def)             Requested size: 432.48051pt x 373.51575pt.
 
 
-[24 <./img/fig_tiempo.png> <./img/fig_memoria.png> <./img/fig_calidad.png> <./i
-mg/fig_hormigas.png>]
-<img/fig_semillas.png, id=536, 794.97pt x 303.534pt>
+[20 <./img/fig_calidad.png> <./img/fig_hormigas.png>]
+<img/fig_semillas.png, id=476, 794.97pt x 303.534pt>
 File: img/fig_semillas.png Graphic file (type png)
 <use img/fig_semillas.png>
-Package pdftex.def Info: img/fig_semillas.png  used on input line 776.
+Package pdftex.def Info: img/fig_semillas.png  used on input line 688.
 (pdftex.def)             Requested size: 341.43307pt x 130.36885pt.
 
 
-[25 <./img/fig_tours.png> <./img/fig_semillas.png>]
+[21 <./img/fig_tours.png>]
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
@@ -1159,7 +1141,9 @@ File: lstlang1.sty 2024/09/23 1.10c listings language file
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 
-[26] (./informe_sustentacion.aux
+[22 <./img/fig_semillas.png>]
+
+[23] (./informe_sustentacion.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
 )
@@ -1168,16 +1152,16 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `informe_sustentacion.out' has not changed.
-(rerunfilecheck)             Checksum: 01C3B9F01A880E0ACD39C3058C40BB67;15880.
+(rerunfilecheck)             Checksum: 61E9EBE9E3243E70246396DC10E63A8A;13331.
  ) 
 Here is how much of TeX's memory you used:
- 29854 strings out of 475116
- 573292 string characters out of 5764601
- 1778454 words of memory out of 5000000
- 52156 multiletter control sequences out of 15000+600000
- 672754 words of font info for 110 fonts, out of 8000000 for 9000
+ 29814 strings out of 475116
+ 572745 string characters out of 5764601
+ 1774384 words of memory out of 5000000
+ 52137 multiletter control sequences out of 15000+600000
+ 671794 words of font info for 107 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
- 98i,14n,101p,1547b,1974s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 98i,14n,101p,1547b,2113s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/ty
 pe1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb></
 usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/
@@ -1192,10 +1176,10 @@ ublic/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtk10.pfb></usr/sha
 re/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/
 lm/lmtt9.pfb></usr/share/texmf/fonts/type1/public/lm/lmtti10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on informe_sustentacion.pdf (26 pages, 2407470 bytes).
+Output written on informe_sustentacion.pdf (23 pages, 3319897 bytes).
 PDF statistics:
- 726 PDF objects out of 1000 (max. 8388607)
- 602 compressed objects within 7 object streams
- 221 named destinations out of 1000 (max. 500000)
- 462 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 663 PDF objects out of 1000 (max. 8388607)
+ 543 compressed objects within 6 object streams
+ 201 named destinations out of 1000 (max. 500000)
+ 414 words of extra memory for PDF output out of 10000 (max. 10000000)
 
